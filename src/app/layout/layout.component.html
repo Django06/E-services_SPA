@@ -1,0 +1,6 @@
+<futuristic-layout *ngIf="layout === 'futuristic'"></futuristic-layout>
+<div class="flex flex-col flex-auto w-full" *ngIf="layout === 'empty'">
+    <div class="flex flex-col flex-auto">
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+</div>

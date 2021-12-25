@@ -1,0 +1,102 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="bg-white shadow print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.futuristic"
+    [opened]="!isScreenSmall"
+>
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationHeader>
+        <!-- Logo -->
+        <div class="flex items-center p-6 justify-center">
+            <img class="w-30" src="assets/images/logo/e-service.png" />
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationFooter>
+        <div class="flex items-center h-20 p-6 justify-center">
+            <img class="w-30" src="assets/images/logo/logo.png" />
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div class="flex flex-col flex-auto w-full min-w-0">
+    <div
+        class="
+            relative
+            flex flex-0
+            items-center
+            w-full
+            h-16
+            px-4
+            md:px-6
+            z-49
+            shadow
+            dark:shadow-none dark:border-b
+            bg-card
+            dark:bg-transparent
+            print:hidden
+        "
+        style="border-bottom-right-radius: 4.5rem !important"
+    >
+        <button
+            class="mr-2"
+            mat-icon-button
+            (click)="toggleNavigation('mainNavigation')"
+        >
+            <mat-icon [svgIcon]="'menu'"></mat-icon>
+        </button>
+        <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+            <search [appearance]="'bar'"></search>
+
+            <button mat-icon-button>
+                <mat-icon
+                    svgIcon="notifications"
+                    matBadge="4"
+                    matBadgeSize="small"
+                ></mat-icon>
+            </button>
+        </div>
+
+        <div class="flex">
+            <div class="flex flex-col w-full ml-4 overflow-hidden">
+                <div
+                    class="
+                        w-full
+                        whitespace-nowrap
+                        text-ellipsis
+                        overflow-hidden
+                        leading-normal
+                        text-current
+                        opacity-80
+                    "
+                >
+                    {{ user.name }}
+                </div>
+                <div
+                    class="
+                        w-full
+                        mt-0.5
+                        whitespace-nowrap
+                        text-sm text-ellipsis
+                        overflow-hidden
+                        leading-normal
+                        text-current
+                        opacity-50
+                    "
+                >
+                    Administrateur
+                </div>
+            </div>
+            <user class="ml-2"></user>
+        </div>
+    </div>
+
+    <div class="flex flex-col flex-auto">
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+</div>
