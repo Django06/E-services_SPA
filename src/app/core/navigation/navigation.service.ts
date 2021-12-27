@@ -1,44 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, ReplaySubject, tap } from 'rxjs';
-import { Navigation } from 'app/core/navigation/navigation.types';
+import { Observable, of, ReplaySubject, tap } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { NavigationItem } from '@fuse/components/navigation';
+import { clientNavigation, dmpNavigation, supAdminNavigation } from './data';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
-export class NavigationService
-{
-    private _navigation: ReplaySubject<Navigation> = new ReplaySubject<Navigation>(1);
+export class NavigationService {
+    private _navigation: ReplaySubject<NavigationItem[]> = new ReplaySubject<
+        NavigationItem[]
+    >(1);
 
-    /**
-     * Constructor
-     */
-    constructor(private _httpClient: HttpClient)
-    {
-    }
+    constructor(private _authService: AuthService) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Getter for navigation
-     */
-    get navigation$(): Observable<Navigation>
-    {
+    get navigation$(): Observable<NavigationItem[]> {
         return this._navigation.asObservable();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+    get(): Observable<NavigationItem[]> {
+        console.log('NOTI', this._authService?.role);
 
-    /**
-     * Get all navigation data
-     */
-    get(): Observable<Navigation>
-    {
-        return this._httpClient.get<Navigation>('api/common/navigation').pipe(
+        let selectedNavigation: NavigationItem[] = [];
+        switch (this._authService?.role?.name?.toLocaleUpperCase()) {
+            case 'SUPER ADMINISTRATEUR':
+                selectedNavigation = supAdminNavigation;
+                break;
+            case 'DMP':
+                selectedNavigation = dmpNavigation;
+                break;
+            case 'CLIENT':
+                selectedNavigation = clientNavigation;
+                break;
+        }
+        return of(selectedNavigation).pipe(
             tap((navigation) => {
                 this._navigation.next(navigation);
             })

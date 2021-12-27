@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from 'app/core/auth/auth.service';
+import { NavigationService } from 'app/core/navigation/navigation.service';
 import {
     catchError,
     EMPTY,
@@ -34,7 +35,8 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
     constructor(
         private _authService: AuthService,
         private _fb: FormBuilder,
-        private _router: Router
+        private _router: Router,
+        private _navigationService: NavigationService
     ) {}
 
     ngOnInit(): void {
@@ -57,6 +59,7 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
             .pipe(
                 takeUntil(this._unsubscribe$),
                 map((res) => {
+                    this._navigationService.get();
                     const redirectURL = res?.role?.redirectRoute;
                     this._router.navigateByUrl(redirectURL);
                 }),

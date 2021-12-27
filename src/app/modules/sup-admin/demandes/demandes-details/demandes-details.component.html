@@ -1,0 +1,178 @@
+<div
+    class="
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-hidden
+        p-6
+        dark:bg-transparent
+    "
+>
+    <!-- Header -->
+    <mat-card
+        class="
+            flex flex-row
+            w-full
+            justify-between
+            items-center
+            rounded-full
+            text-sm
+            shadow
+            bg-gray-50
+        "
+        style="height: 8vh; cursor: pointer"
+    >
+        <mat-form-field class="mt-4" style="width: 6vw">
+            <input matInput class="text-sm" placeholder="ID" />
+        </mat-form-field>
+        <mat-form-field class="mt-4" style="width: 10vw">
+            <input matInput class="text-sm" placeholder="Catégorie" />
+        </mat-form-field>
+        <mat-form-field class="mt-4" style="width: 10vw">
+            <input matInput class="text-sm" placeholder="Famille" />
+        </mat-form-field>
+        <mat-form-field class="mt-4" style="width: 12vw">
+            <!-- <mat-select>
+                <mat-option *ngFor="let ds of typs" [value]="ds.name">
+                    <mat-icon [class]="'icon-size-4 mr-1 ' + ds?.class">{{
+                        ds?.icone
+                    }}</mat-icon>
+                    {{ ds?.name }}
+                </mat-option>
+            </mat-select> -->
+            <input matInput class="text-sm" placeholder="Nbr de dossier" />
+        </mat-form-field>
+        <mat-form-field class="mt-4" style="width: 10vw">
+            <input matInput class="text-sm" placeholder="Créateur" />
+        </mat-form-field>
+        <mat-form-field class="mt-4" style="width: 12vw">
+            <input
+                matInput
+                placeholder="Date création"
+                [matDatepicker]="picker"
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <button
+            class="ml-2"
+            mat-icon-button
+            [color]="'primary'"
+            (click)="search$.next()"
+        >
+            <mat-icon svgIcon="replay"></mat-icon>
+        </button>
+    </mat-card>
+
+    <div class="flex flex-auto overflow-hidden mt-4">
+        <div
+            class="
+                flex flex-col flex-auto
+                overflow-hidden
+                sm:overflow-y-auto
+                bg-gray-100
+            "
+        >
+            <ng-container
+                *ngIf="dataSource?.data?.length == 0; else noProducts"
+            >
+                <mat-card
+                    class="
+                        flex flex-row
+                        w-full
+                        justify-between
+                        items-center
+                        rounded-full
+                        border
+                        text-sm
+                    "
+                    style="height: 8vh; cursor: pointer"
+                >
+                    <div class="flex flex-row items-center mr-2">
+                        <mat-icon class="icon-size-5">folder_open</mat-icon>
+                        <span class="text-sm ml-2">BC244</span>
+                    </div>
+
+                    <div class="flex flex-row items-center mr-2">
+                        <mat-icon class="icon-size-5">cached</mat-icon>
+                        <span class="text-sm ml-2">En Progression</span>
+                    </div>
+                    <div class="flex flex-row items-center mr-2">
+                        <img
+                            src="assets/images/logo/logo.png"
+                            class="rounded-full w-10"
+                        />
+                        <span>Pfizer</span>
+                    </div>
+                    <span class="">LOREPSI 200 MG</span>
+
+                    <div class="flex flex-col text-sm">
+                        <div class="flex w-full items-center">
+                            <mat-icon class="icon-size-4"
+                                >supervised_user_circle</mat-icon
+                            >
+                            <span class="ml-1"> Ahmed Test </span>
+                        </div>
+                        <div class="flex w-full items-center">
+                            <mat-icon class="icon-size-4"
+                                >calendar_today</mat-icon
+                            >
+                            <span class="ml-1"> 22/10/2020</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col text-sm">
+                        <div class="flex w-full items-center">
+                            <mat-icon class="icon-size-4">watch_later</mat-icon>
+                            <span class="ml-1">Temps écoulé</span>
+                        </div>
+                        <div class="flex w-full justify-center">10j / 15j</div>
+                    </div>
+
+                    <mat-progress-spinner [mode]="'determinate'" [value]="'50'">
+                    </mat-progress-spinner>
+
+                    <div
+                        class="flex text-sm items-center"
+                        style="justify-content: space-around"
+                    >
+                        <button mat-icon-button>
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>
+                                <span>Variation</span>
+                            </button>
+                            <button mat-menu-item>
+                                <span>Autre options</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </mat-card>
+            </ng-container>
+
+            <ng-template #noProducts>
+                <div
+                    *ngIf="!isLoading"
+                    class="
+                        p-8
+                        sm:p-16
+                        border-t
+                        text-xl
+                        font-semibold
+                        tracking-tight
+                        text-center
+                    "
+                >
+                    Il n'y a pas de charges
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

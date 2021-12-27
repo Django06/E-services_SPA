@@ -3,6 +3,7 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
+import { DashboardComponent } from './modules/shared/dashboard/dashboard.component';
 
 export const appRoutes: Route[] = [
     { path: '', pathMatch: 'full', redirectTo: 'supadmin' },
@@ -33,6 +34,10 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children: [
+            {
+                path: 'dashboard',
+                component: DashboardComponent,
+            },
             {
                 path: 'supadmin',
                 loadChildren: () =>

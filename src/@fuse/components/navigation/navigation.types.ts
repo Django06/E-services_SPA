@@ -1,32 +1,20 @@
 import { IsActiveMatchOptions } from '@angular/router';
 
-export interface FuseNavigationItem
-{
+export interface NavigationItem {
     id?: string;
     title?: string;
     subtitle?: string;
-    type:
-        | 'aside'
-        | 'basic'
-        | 'collapsable'
-        | 'divider'
-        | 'group'
-        | 'spacer';
-    hidden?: (item: FuseNavigationItem) => boolean;
+    type: 'aside' | 'basic' | 'collapsable' | 'divider' | 'group' | 'spacer';
+    hidden?: (item: NavigationItem) => boolean;
     active?: boolean;
     disabled?: boolean;
     tooltip?: string;
     link?: string;
     externalLink?: boolean;
-    target?:
-        | '_blank'
-        | '_self'
-        | '_parent'
-        | '_top'
-        | string;
+    target?: '_blank' | '_self' | '_parent' | '_top' | string;
     exactMatch?: boolean;
     isActiveMatchOptions?: IsActiveMatchOptions;
-    function?: (item: FuseNavigationItem) => void;
+    function?: (item: NavigationItem) => void;
     classes?: {
         title?: string;
         subtitle?: string;
@@ -38,7 +26,7 @@ export interface FuseNavigationItem
         title?: string;
         classes?: string;
     };
-    children?: FuseNavigationItem[];
+    children?: NavigationItem[];
     meta?: any;
 }
 
@@ -48,10 +36,6 @@ export type FuseVerticalNavigationAppearance =
     | 'dense'
     | 'thin';
 
-export type FuseVerticalNavigationMode =
-    | 'over'
-    | 'side';
+export type FuseVerticalNavigationMode = 'over' | 'side';
 
-export type FuseVerticalNavigationPosition =
-    | 'left'
-    | 'right';
+export type FuseVerticalNavigationPosition = 'left' | 'right';

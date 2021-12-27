@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
+import { NavigationService } from '../navigation/navigation.service';
+import { RolsModel } from 'app/modules/auth/sign-in/sign-in.component';
 
 @Injectable()
 export class AuthService {
     private _authenticated: boolean = false;
-
+    private _role: RolsModel = {
+        id: 'dsfzfzfz',
+        name: 'Super Administrateur',
+        redirectRoute: 'supadmin',
+    };
     constructor() {}
 
     set accessToken(token: string) {
@@ -14,13 +20,18 @@ export class AuthService {
     get accessToken(): string {
         return localStorage.getItem('accessToken') ?? '';
     }
+    set role(role: RolsModel) {
+        this._role = role;
+    }
+    get role(): RolsModel {
+        return this._role;
+    }
 
     signIn(credentials: {
-        role: string;
+        role: RolsModel;
         login: string;
         password: string;
     }): Observable<any> {
-        // Throw error, if the user is already logged in
         if (this._authenticated) {
             return throwError('User is already logged in.');
         }
@@ -30,8 +41,8 @@ export class AuthService {
             role: credentials.role,
         }).pipe(
             switchMap((response: any) => {
-                // Store the access token in the local storage
                 this.accessToken = response.accessToken;
+                this.role = credentials?.role;
                 this._authenticated = true;
                 return of(response);
             })

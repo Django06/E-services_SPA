@@ -1,0 +1,27 @@
+mat-progress-spinner {
+    width: 24px !important;
+    height: 24px !important;
+    margin: 5px 10px 0px 0px;
+    & svg {
+        width: 25px !important;
+        height: 25px !important;
+    }
+}
+
+::ng-deep {
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+        border-radius: 9999px !important;
+        height: 1.75rem !important;
+    }
+    .mat-form-field-flex > .mat-form-field-infix {
+        padding: 0.4em 0px !important;
+    }
+    .mat-form-field-label-wrapper {
+        top: -1.5em;
+    }
+    .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+        .mat-form-field-label {
+        transform: translateY(-1.1em) scale(0.75);
+        width: 133.33333%;
+    }
+}
